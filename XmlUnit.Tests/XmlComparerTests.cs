@@ -1,4 +1,5 @@
-﻿namespace NetBike.XmlUnit.Tests
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+namespace NetBike.XmlUnit.Tests
 {
     using System.Linq;
     using NetBike.XmlUnit;
@@ -12,6 +13,16 @@
         {
             var comparison = CompareItems("elements", "elements");
             AssertComparison(comparison, XmlComparisonState.Equal);
+        }
+
+        [Test]
+        public void Compare_GasXml()
+        {
+            var comparer = new XmlComparer { NodeMatcher = XmlNodeMatcher.ByLocalName };
+
+            var comparison = CompareItems(comparer, "RefDoc-GasXml", "ShadowDoc-GasXml");
+
+            AssertComparison(comparison, XmlComparisonState.Different);
         }
 
         [Test]
